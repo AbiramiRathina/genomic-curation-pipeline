@@ -45,6 +45,114 @@ This handcrafted dataset ensures:
 
 ---
 
+## 🧰 Tech Stack & Rationale
+
+This project uses a lightweight, fully open-source stack designed to meet the assignment requirement of **zero-cost NLP processing** while still providing a clean, modern, and extensible architecture.
+
+### **Backend**
+
+| Component                 | Why It’s Used                                                                                                                                                                                                |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Python 3.10+**          | Core language for NLP, data processing, and fast prototyping.                                                                                                                                                |
+| **FastAPI**               | Extremely fast API framework; easy to build async, high-performance microservices.                                                                                                                           |
+| **Strawberry GraphQL**    | Simple, modern GraphQL library with Python type-hint support. Allows elegant schema definitions (`@strawberry.type`) and avoids the boilerplate of REST. Ideal for structured data like entities & clusters. |
+| **scikit-learn**          | Provides TF-IDF vectorization, KMeans clustering, and PCA for topic modeling and visualization—lightweight and assignment-compliant.                                                                         |
+| **Matplotlib**            | Required to generate topic barplots and PCA scatter plots for the UI.                                                                                                                                        |
+| **pandas / numpy**        | Standard libraries for loading and manipulating texts.                                                                                                                                                       |
+| **regex (re)**            | Enables rule-based extraction for variants, genes, and relations.                                                                                                                                            |
+| **OpenAI API (optional)** | The LLM extractor is included as an **optional** enhancement. The system gracefully falls back to regex when the API key is not set.                                                                         |
+
+---
+
+### **Frontend**
+
+| Component                        | Why It’s Used                                                                                                                         |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| **Streamlit**                    | Fastest way to build an interactive NLP dashboard. Auto-refresh columns, tables, code execution. Perfect for curator-style workflows. |
+| **Aiohttp (async)**              | Allows async GraphQL calls from Streamlit to the backend without blocking UI interactions.                                            |
+| **HTML-based Text Highlighting** | Makes extracted entities visually obvious to curators.                                                                                |
+| **Base64 Plot Embedding**        | Sends images directly from backend → GraphQL → Streamlit without saving files.                                                        |
+
+---
+
+### ⭐ Why Use **Strawberry GraphQL**?
+
+Strawberry was chosen because:
+
+#### **1. Clean, pythonic schema**
+
+You define your GraphQL schema with Python classes:
+
+```python
+@strawberry.type
+class ExtractionResult:
+    variant: str | None
+    gene: list[str] | None
+```
+
+Much easier than Graphene or “manual” GraphQL JSON building.
+
+#### **2. Automatic type-checking and validation**
+
+Strawberry uses Python type hints (`List[str]`, `Optional[str]`) to automatically generate the GraphQL schema.
+
+#### **3. Simple FastAPI integration**
+
+Just:
+
+```python
+graphql_app = GraphQLRouter(schema)
+app.include_router(graphql_app, prefix="/graphql")
+```
+
+No complex setup.
+
+#### **4. Perfect fit for structured NLP outputs**
+
+Entity extraction returns structured objects:
+
+* variant
+* gene list
+* disease
+* relation
+* raw text
+
+GraphQL is ideal for nested structured data like this.
+
+#### **5. Zero-cost, zero-GPU, zero-complexity**
+
+Fits the assignment guideline of building a lightweight NLP pipeline with simple, clear code.
+
+---
+🏗️ System Architecture 
+
+                         ┌──────────────────────────┐
+                         │        User (UI)         │
+                         │  Streamlit Web App       │
+                         └─────────────▲────────────┘
+                                       │ HTTP (GraphQL)
+                                       │
+                     ┌─────────────────┴──────────────────┐
+                     │         FastAPI Backend            │
+                     │     with Strawberry GraphQL        │
+                     └─────────────────▲──────────────────┘
+                                       │
+                    ┌──────────────────┼──────────────────┐
+                    │                  │                  │
+        ┌───────────┴───────┐  ┌──────┴────────┐   ┌─────┴────────┐
+        │ Entity Extraction  │  │ Topic Clustering│   │ Visualization │
+        │   (Regex + LLM)    │  │   (TF-IDF,      │   │ (Matplotlib   │
+        │ Regex patterns for │  │   KMeans, PCA)  │   │  Convex Hulls)│
+        │ rsID / Gene / AD   │  │ Document groups │   │ Bar + Scatter │
+        └──────────▲─────────┘  └──────▲─────────┘   └─────▲────────┘
+                   │                   │                   │
+                   │                   │                   │
+                ┌──┴───────────────────┴───────────────────┴───┐
+                │          texts.csv (Local Dataset)            │
+                │    20 curated biomedical text snippets        │
+                └───────────────────────────────────────────────┘
+
+---
 
 ## 📂 Repository Structure
 
