@@ -1,0 +1,60 @@
+# --------------------------
+# Python
+# --------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Streamlit cache
+.streamlit/
+
+# Logs
+*.log
+
+# Cache
+.cache/
+dist/
+build/
+
+# VSCode / PyCharm
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.development
+
+# Docker
+Dockerfile~
+docker-compose.override.yml
+*.pid
+
+# Python build artifacts
+pip-wheel-metadata/
+wheels/
+*.spec
+
+# Testing
+pytest_cache/
+.coverage
+htmlcov/

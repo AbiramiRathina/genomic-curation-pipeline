@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+strawberry-graphql
+python-dotenv
+openai
+pandas
+numpy
+aiohttp
+rank-bm25
+spacy
+scikit-learn
+matplotlib
