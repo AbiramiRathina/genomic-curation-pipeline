@@ -450,3 +450,4 @@ This project delivers a complete genomic text–curation stack:
 ✔ Docker-deployable
 
 Everything is lightweight and designed to meet the **zero-cost requirement**.
+

@@ -4,7 +4,7 @@ import asyncio
 import base64
 import pandas as pd
 import re
-import os
+import os 
 
 GRAPHQL_URL = os.getenv("BACKEND_URL", "http://localhost:8000/graphql")
 
