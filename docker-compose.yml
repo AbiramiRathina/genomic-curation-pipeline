@@ -1,0 +1,29 @@
+version: "3.10"
+
+services:
+
+  backend:
+    container_name: genomic-backend
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=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
+    networks:
+      - genomic_net
+
+  frontend:
+    container_name: genomic-frontend
+    build: ./frontend
+    ports:
+      - "8501:8501"
+    environment:
+      - BACKEND_URL=http://backend:8000/graphql
+    depends_on:
+      - backend
+    networks:
+      - genomic_net
+
+networks:
+  genomic_net:
+    driver: bridge
