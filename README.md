@@ -415,6 +415,7 @@ All findings were **verified manually**, and I will attach screenshots of the ou
 
 **Conclusion:**
 👉 **Both systems perform correctly on mildly misspelled disease names.**
+<img width="1920" height="1080" alt="Screenshot 2025-11-14 at 7 12 12 PM (2)" src="https://github.com/user-attachments/assets/42947233-314c-40af-94dc-8d1d521e9986" />
 
 ---
 
@@ -431,7 +432,9 @@ All findings were **verified manually**, and I will attach screenshots of the ou
   (`Alzhimer, Alzheimers, Alzheimer's, AD` etc).
 
 **Conclusion:**
-👉 The regex method **breaks on unseen misspellings**, while the LLM extractor generalizes better.
+👉 The regex method **breaks on unseen misspellings**, while the LLM extractor generalizes better. But is not able to hightlight the word.
+<img width="1920" height="1080" alt="Screenshot 2025-11-14 at 7 12 12 PM (2)" src="https://github.com/user-attachments/assets/81e860de-959c-4353-ad0c-4bdc43592322" />
+
 
 ---
 
@@ -458,6 +461,8 @@ Regex treats:
 
 **Conclusion:**
 👉 Regex is brittle and cannot distinguish between gene symbols and variants in edge cases where prefixes overlap.
+<img width="1920" height="1080" alt="Screenshot 2025-11-14 at 7 12 12 PM (2)" src="https://github.com/user-attachments/assets/0280a1b7-fd78-4426-a8b2-d63aa3381f6a" />
+
 
 ---
 
@@ -474,6 +479,8 @@ Reason:
 **Conclusion:**
 👉 This is expected behavior — top-k limits the maximum, not the minimum.
 👉 Requires more documents or cluster-size constraints to fix.
+<img width="1920" height="1080" alt="Screenshot 2025-11-14 at 7 14 39 PM (2)" src="https://github.com/user-attachments/assets/38adef9e-8792-4da0-870b-0f074dd8063f" />
+
 
 ---
 
@@ -488,6 +495,10 @@ This was manually tested by unsetting the environment variable (`OPENAI_API_KEY`
 
 **Conclusion:**
 👉 The system is robust: *auto mode* guarantees extraction even without OpenAI access.
+<img width="1920" height="1080" alt="Screenshot 2025-11-14 at 7 14 39 PM (2)" src="https://github.com/user-attachments/assets/f3f37d86-d08f-4f00-a24d-6852215a48d2" />
+<img width="1920" height="1080" alt="Screenshot 2025-11-14 at 7 14 39 PM (2)" src="https://github.com/user-attachments/assets/facd5155-fd69-4eba-8c5b-9f96251de635" />
+
+
 
 ---
 
