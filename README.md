@@ -33,7 +33,7 @@ To ensure biological realism and domain alignment:
 * From these documents, I **manually wrote 20 short phrasing-style snippets**, each mimicking the style of genetics literature (variants, genes, phenotypes, relation verbs).
 * These curated snippets were finally saved into the repository as **`texts.csv`**, with two columns:
 
-  * `id` — a short identifier (e.g., `T001`, `T002`)
+  * `id` — a short identifier (e.g., `T1`, `T2`)
   * `text` — the genomic phrase to be extracted and clustered
 
 This handcrafted dataset ensures:
@@ -199,12 +199,11 @@ Unified schema:
 
 ```json
 {
-  "text_id": "T0034",
   "variant": "rs429358",
   "gene": ["APOE"],
-  "phenotype": "Alzheimer’s disease",
+  "disease": "Alzheimer’s disease",
   "relation": "increases risk of",
-  "evidence_span": "rs429358 in APOE increases AD risk"
+  "error": null
 }
 ```
 
@@ -224,7 +223,7 @@ Backend returns:
 * Top keywords per topic
 * Example texts per topic
 * Bar plot (docs per cluster)
-* PCA scatter plot (colored clusters)
+* PCA scatter plot (colored clusters, with boundries marked)
 
 ---
 
@@ -232,15 +231,15 @@ Backend returns:
 
 **Entity View**
 
-* Side-by-side LLM vs Regex
+* Option to choose mode of entity extraction: auto, llm, regex, both
 * Highlighted entities (colors)
 * Clean comparison table
 
 **Clustering View**
 
-* Select `# clusters`
-* Select `Top-K examples`
-* Alternating color blocks per topic
+* Select `No of clusters(1-7)`
+* Select `Top-K examples(1-5)`
+* Alternating color blocks per topic for easy understanding
 * Plots displayed directly in UI
 
 ---
@@ -250,11 +249,17 @@ Backend returns:
 ### 1. Clone repository
 
 ```bash
-git clone <your-repo>
-cd your-repo
+git clone <ssh/http genomic-curation-pipeline>
+cd genomic-curation-pipeline
 ```
 
-### 2. Install dependencies
+### 2. Create virtual environment
+```
+pythoin3 -m venv venv
+source venv/bin/activate
+```
+
+### 3. Install dependencies
 
 Backend:
 
@@ -379,10 +384,6 @@ query Cluster {
   }
 }
 ```
-
-Here is a **clean, copy-paste-ready Error Analysis section in Markdown**, matching the style of your README.
-Just paste it directly into your README.md — no extra formatting needed.
-
 ---
 
 # ❗ Error Analysis
@@ -405,6 +406,7 @@ All findings were **verified manually**, and I will attach screenshots of the ou
   * Genes: `CHST1`, `MIR7154`
   * Disease: normalized form *“Alzheimer’s disease”*
   * Relation: *increases risk*
+    
 * **Regex Extraction:** Also succeeds because:
 
   * The variant matches `rs\d+`
@@ -501,9 +503,6 @@ This was manually tested by unsetting the environment variable (`OPENAI_API_KEY`
 
 ---
 
-If you'd like, I can also generate a **“Limitations & Next Steps”** section in the same style.
-
-
 ## 🚧 Limitations
 
 * Regex is brittle for novel gene naming patterns
@@ -522,6 +521,7 @@ If you'd like, I can also generate a **“Limitations & Next Steps”** section 
 * Add **interactive cluster explorer** (hover-text)
 * Add **downloadable curation tables**
 * Add **relation dependency patterns** using SpaCy
+* Add **loggers** to help with debugging, and to match production code standards
 
 ---
 
@@ -535,15 +535,26 @@ If you'd like, I can also generate a **“Limitations & Next Steps”** section 
 | gene          | List of gene names   |
 | disease       | Normalized phenotype |
 | relation      | Type of effect       |
-| evidence_span | Concise summary      |
 | cluster_id    | Topic assigned       |
 | keywords      | Topic keywords       |
 
 ---
 
 ## 📎 Example Output Screenshot
+<img width="1920" height="1080" alt="Screenshot 2025-11-14 at 7 08 04 PM (2)" src="https://github.com/user-attachments/assets/9750d5ac-85da-450b-9d8e-7c05f9d5a612" />
 
-(*Add your Streamlit screenshots here*)
+<img width="1920" height="1080" alt="Screenshot 2025-11-14 at 7 07 53 PM (2)" src="https://github.com/user-attachments/assets/5c741ed6-6c64-4693-8ee5-a576e635c5c6" />
+
+<img width="1920" height="1080" alt="Screenshot 2025-11-14 at 7 07 46 PM (2)" src="https://github.com/user-attachments/assets/769689df-2009-48da-ad28-46dd171bc821" />
+
+<img width="1920" height="1080" alt="Screenshot 2025-11-14 at 7 07 40 PM (2)" src="https://github.com/user-attachments/assets/97259618-633a-4044-a00b-921d72b2f205" />
+
+<img width="1920" height="1080" alt="Screenshot 2025-11-14 at 7 04 26 PM (2)" src="https://github.com/user-attachments/assets/91848a19-b109-406d-9053-6921f758f842" />
+
+<img width="1920" height="1080" alt="Screenshot 2025-11-14 at 7 04 29 PM (2)" src="https://github.com/user-attachments/assets/c227f1e7-49df-4b74-bc98-ac9bf79061f7" />
+
+<img width="1920" height="1080" alt="Screenshot 2025-11-14 at 7 04 36 PM (2)" src="https://github.com/user-attachments/assets/4493fe13-54f3-43b3-b789-da2446f90649" />
+
 
 ---
 
