@@ -27,9 +27,9 @@ For this project, I created a custom dataset of **20 manually-curated genomic te
 
 To ensure biological realism and domain alignment:
 
-* I referenced **six publications** listed on the official project guideline source:
+* Referenced **six publications** listed on the official project guideline source:
   **[https://advp.niagads.org/publications](https://advp.niagads.org/publications)**
-* I opened a **separate Jupyter notebook (`notebook.ipynb`)** where I scraped and read through the abstracts, figure captions, and key variant–gene–phenotype descriptions from these papers.
+* Opened a **separate Jupyter notebook (`notebook.ipynb`)** where I scraped and read through the abstracts, figure captions, and key variant–gene–phenotype descriptions from these papers.
 * From these documents, I **manually wrote 20 short phrasing-style snippets**, each mimicking the style of genetics literature (variants, genes, phenotypes, relation verbs).
 * These curated snippets were finally saved into the repository as **`texts.csv`**, with two columns:
 
@@ -43,6 +43,7 @@ This handcrafted dataset ensures:
 * realistic vocabulary for Alzheimer’s and cognitive phenotype genetics,
 * and relevance for evaluating extraction + topic grouping.
 
+Note: This file can be found under the backend folder
 ---
 
 ## 🧰 Tech Stack & Rationale
@@ -169,8 +170,11 @@ Fits the assignment guideline of building a lightweight NLP pipeline with simple
 │   ├── requirements.txt
 │   └── Dockerfile
 │
+├── .gitignore
 ├── docker-compose.yml
+├── notebook.ipynb
 └── README.md
+
 ```
 
 ---
